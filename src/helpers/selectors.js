@@ -56,7 +56,7 @@ export function getInterview(state, interview) {
 // console.log(getInterview(state, null));
 
 export function getAppointmentsForDay(state, day) {
-  //... returns an array of appointments for that day
+  //... returns an array of appointments for that day, or empty array if no appointments
   let result = [];
   const dayObj = state.days.find(obj => obj.name === day);
   if(dayObj){
