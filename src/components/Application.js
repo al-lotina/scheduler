@@ -81,7 +81,7 @@ export default function Application(props) {
   const setDay = day => setState({...state, day });
   // const setDays = days => setState(prev => ({...prev, days })); // per compass
   const dailyAppointments = getAppointmentsForDay(state, state.day); // change to day (day 4) ? 
-  console.log("dailyAppointments = ", dailyAppointments);
+  // console.log("dailyAppointments = ", dailyAppointments);
   const interviewers = getInterviewersForDay(state, state.day);
 
   function bookInterview(id, interview) {
@@ -110,9 +110,9 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    const promise = axios.put(`/api/appointments/${id}`, appointment)
+    const promise = axios.delete(`/api/appointments/${id}`)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       setState({...state, appointments: appointments}) 
     });
     return promise;

@@ -11,7 +11,8 @@ import Confirm from "components/Appointment/Confirm"
 const useVisualMode = (initial) => {
   // console.log('inside useVisualMode')
   const [mode, setMode] = useState(initial);
-  const [history, setHistory] = useState([initial]); 
+  const [history, setHistory] = useState([initial]);
+
   function transition(newMode, replace = false) {
     const newHistory = [...history]
     if(replace) {
@@ -21,6 +22,7 @@ const useVisualMode = (initial) => {
     setMode(newMode);
     setHistory(newHistory);
   };
+
   function back() {
     const newHistory = [...history]
     if(newHistory.length > 1) {
@@ -43,8 +45,10 @@ const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
 
 export default function Appointment(props) {
+  // console.log("Appointment props: ", props)
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -69,6 +73,10 @@ export default function Appointment(props) {
     .then(() => {transition(EMPTY)});  
   };
 
+  function onEdit() {
+    transition(EDIT);
+  };
+
   return (
     // Show onDelete={onDelete}
     <Fragment>
@@ -76,15 +84,18 @@ export default function Appointment(props) {
       {mode === EMPTY && 
       <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
-      <Show student={props.interview.student} interviewer={props.interview.interviewer} onDelete={onDelete} />)} 
+      <Show student={props.interview.student} interviewer={props.interview.interviewer} onDelete={onDelete} onEdit={onEdit} />)} 
       {mode === CREATE && (
-      <Form interviewers={props.interviewers} onCancel={() => back(EMPTY)} onSave={save} bookInterview={props.bookInterview} />)}
+      <Form interviewers={props.interviewers} onCancel={() => back()} onSave={save} />)}
+      
+      {mode === EDIT && (
+      <Form name={props.interview.student} interviewer={props.interview.interviewer.id} interviewers={props.interviewers} onCancel={() => back()} onSave={save} />)}
       {mode === SAVING && (
       <Status message='Saving' />)}
       {mode === DELETING && (
       <Status message='Deleting' />)}
       {mode === CONFIRM && 
-      <Confirm message='Delete the appointment?' onCancel={() => back(SHOW)} onConfirm={() => {onConfirmDelete()}} />}
+      <Confirm message='Delete the appointment?' onCancel={() => back()} onConfirm={() => {onConfirmDelete()}} />}
     </Fragment>
   )
 }
