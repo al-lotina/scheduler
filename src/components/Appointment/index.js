@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import "components/Appointment/styles.scss";
 import Header from "components/Appointment/Header"
 import Show from "components/Appointment/Show"
@@ -7,38 +7,7 @@ import Form from "components/Appointment/Form"
 import Status from "components/Appointment/Status"
 import Confirm from "components/Appointment/Confirm"
 import Error from "components/Appointment/Error"
-// import useVisualMode from "../hooks/useVisualMode.js"
-
-const useVisualMode = (initial) => {
-  // console.log('inside useVisualMode')
-  const [mode, setMode] = useState(initial);
-  const [history, setHistory] = useState([initial]);
-
-  function transition(newMode, replace = false) {
-    const newHistory = [...history]
-    if(replace) {
-      newHistory.pop();
-    }
-    newHistory.push(newMode)
-    setMode(newMode); // ex prev => ([...prev, newMode])
-    setHistory(newHistory); // ex prev => ([...prev, newHistory])
-  };
-
-  function back() {
-    const newHistory = [...history]
-    if(newHistory.length > 1) {
-      newHistory.pop()
-      setHistory(newHistory); // do same as above?
-      setMode(newHistory[newHistory.length - 1]);
-    }
-    // console.log('history: ', history); 
-  };
-  return { 
-    mode: mode,
-    transition: transition,
-    back: back
-   };
-};
+import useVisualMode from "../../hooks/useVisualMode.js"
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -51,7 +20,6 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
-  // console.log("Appointment props: ", props)
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -83,7 +51,6 @@ export default function Appointment(props) {
   };
 
   return (
-    // Show onDelete={onDelete}
     <Fragment>
       <Header time={props.time} />
       {mode === EMPTY && 
