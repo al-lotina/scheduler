@@ -1,58 +1,13 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "components/Application.scss";
 import DayList from "components/DayList.js";
 import Appointment from "components/Appointment";
 import axios from 'axios';
 import {getAppointmentsForDay, getInterviewersForDay, getInterview} from "../helpers/selectors.js";
-
-const localdays = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
-
-const localAppointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  }
-];
-/* line 48 is the same as:
-    <Appointment 
-      key={app.id}
-      id={app.id}
-      time={app.time} 
-      interview={app.interview} 
-      />
-*/      
+   
 export default function Application(props) {
   // const [day, setDay] = useState('Monday');
   // const [days, setDays] = useState([]);
-  
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -135,7 +90,7 @@ export default function Application(props) {
   const appSchedule = dailyAppointments.map((app) => {
     const interview = getInterview(state, app.interview);
     // console.log("state in getInterview: ", state)
-    console.log("getInterview= ", interview);
+    // console.log("getInterview= ", interview);
     return (
       <Appointment 
         key={app.id} // ex {...app}  
@@ -169,7 +124,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {appSchedule}
-        <Appointment key="last" time="5pm"/> 
+        {/* <Appointment key="last" time="5pm"/> */}
       </section>
     </main>
   );

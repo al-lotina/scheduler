@@ -38,7 +38,7 @@ export default function Show(props) {
           <section className="interviewer">
             <h4 className="text--light">Interviewer</h4>
             
-            <h3 className="text--regular"></h3>
+            {/* <h3 className="text--regular"></h3> */}
           </section>
         </section>
         <section className="appointment__card-right">
