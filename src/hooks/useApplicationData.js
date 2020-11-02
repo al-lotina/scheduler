@@ -22,11 +22,15 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment
     };
-    const promise = axios.put(`/api/appointments/${id}`, appointment)
+    const promise2 = axios.put(`/api/appointments/${id}`, appointment)
     .then(() => {
-      setState({...state, appointments: appointments}) 
+      const promise1 = axios.get('/api/days')
+      .then((res) => {
+        setState({...state, days: res.data, appointments: appointments}) 
+      })
+      return promise1;
     });
-    return promise; //or return axios.put
+    return promise2; //or return axios.put
   };
 
   function cancelInterview(id) {
@@ -38,11 +42,15 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment
     };
-    const promise = axios.delete(`/api/appointments/${id}`)
+    const promise2 = axios.delete(`/api/appointments/${id}`)
     .then(() => {
-      setState({...state, appointments: appointments}) 
+      const promise1 = axios.get('/api/days')
+      .then((res) => {
+        setState({...state, days: res.data, appointments: appointments}) 
+      })
+      return promise1;
     });
-    return promise;
+    return promise2;
   };
 
   useEffect(() => {

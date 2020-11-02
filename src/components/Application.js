@@ -13,6 +13,7 @@ export default function Application(props) {
     bookInterview,
     cancelInterview
   } = useApplicationData();
+  console.log("state in Application: ", state)
   // const [state, setState] = useState({
   //   day: "Monday",
   //   days: [],
@@ -83,6 +84,7 @@ export default function Application(props) {
       />   
     )
   });
+  
   return (
     <main className="layout">
       <section className="sidebar">
