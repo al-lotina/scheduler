@@ -38,10 +38,6 @@ export default function Form(props) {
             value={name}
             onChange={(event) => setName(event.target.value)}
             data-testid="student-name-input"
-            /*
-              This must be a controlled component
-              // should reset function go in a Button below ?
-            */
           />
         </form>
 

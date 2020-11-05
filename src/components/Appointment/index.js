@@ -39,7 +39,7 @@ export default function Appointment(props) {
     transition(CONFIRM);
   };
 
-  function onConfirmDelete() { //destroy(event) FUNCTION IN COMPASS
+  function onConfirmDelete() { 
     transition(DELETING, true);
     props.cancelInterview(props.id)
     .then(() => transition(EMPTY))
@@ -53,8 +53,8 @@ export default function Appointment(props) {
   return (
     <Fragment>
       <Header time={props.time} />
-      {mode === EMPTY && 
-      <Empty onAdd={() => transition(CREATE)} />}
+      {mode === EMPTY && (
+      <Empty onAdd={() => transition(CREATE)} />)}
       {mode === SHOW && (
       <Show student={props.interview.student} interviewer={props.interview.interviewer} onDelete={onDelete} onEdit={onEdit} />)} 
       {mode === CREATE && (

@@ -44,7 +44,7 @@ describe("Form", () => {
     expect(onSave).not.toHaveBeenCalled();
   });
   
-  xit("calls onSave function when the name is defined", () => {
+  it("calls onSave function when the name is defined", () => {
     /* 1. Create the mock onSave function */
     const onSave = jest.fn();
     /* 2. Render the Form with interviewers, name and the onSave mock function passed as an onSave prop */
@@ -65,7 +65,7 @@ describe("Form", () => {
     expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
   });
 
-  xit("submits the name entered by the user", () => {
+  it("submits the name entered by the user", () => {
     const onSave = jest.fn();
     const { getByText, getByPlaceholderText } = render(
       <Form interviewers={interviewers} onSave={onSave} />

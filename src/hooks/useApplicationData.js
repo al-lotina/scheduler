@@ -2,8 +2,6 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 
 const useApplicationData = () => {
-  // const [day, setDay] = useState('Monday');
-  // const [days, setDays] = useState([]);
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -30,15 +28,15 @@ const useApplicationData = () => {
       })
       return promise1;
     });
-    return promise2; //or return axios.put
+    return promise2; 
   };
 
   function cancelInterview(id) {
-    const appointment = { //replaces interview object in appointment object
+    const appointment = { 
       ...state.appointments[id],
       interview: null
     };
-    const appointments = { //then replaces appointment object in state
+    const appointments = { 
       ...state.appointments,
       [id]: appointment
     };
